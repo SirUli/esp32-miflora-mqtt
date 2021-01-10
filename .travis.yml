@@ -14,4 +14,5 @@ install:
     - pio update
 
 script:
+    - mv flora/config.h.example flora/config.h
     - pio run --project-conf=flora/platformio.ini --project-dir=flora
