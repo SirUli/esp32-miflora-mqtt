@@ -350,7 +350,7 @@ void setup() {
   // process devices
   for (int i=0; i<deviceCount; i++) {
     int tryCount = 0;
-    char* deviceMacAddress = FLORA_DEVICES[i];
+    char* deviceMacAddress = const_cast<char*>(FLORA_DEVICES[i]);
     BLEAddress floraAddress(deviceMacAddress);
 
     while (tryCount < RETRY) {
@@ -371,7 +371,7 @@ void setup() {
 
   for (int i=0; i<deviceCount; i++) {
     if (deviceData[i].success) {
-      char* deviceMacAddress = FLORA_DEVICES[i];
+      char* deviceMacAddress = const_cast<char*>(FLORA_DEVICES[i]);
       String baseTopic = MQTT_BASE_TOPIC + "/" + deviceMacAddress + "/";
 
       Serial.print("Publishing data for ");
@@ -400,8 +400,8 @@ void setup() {
   delay(1000);
 
   // disconnect wifi and mqtt
-  disconnectWifi();
   disconnectMqtt();
+  disconnectWifi();
 
   // delete emergency hibernate task
   vTaskDelete(hibernateTaskHandle);
